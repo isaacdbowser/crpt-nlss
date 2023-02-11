@@ -1,4 +1,5 @@
 import numpy as np
+import time
 
 def shanks(g, h, mod):
     g = g % mod # in case g is not given as 0 <= g < mod
@@ -30,6 +31,28 @@ def shanks(g, h, mod):
     x = i + j*n
 
     return x
+def brute(g, h, mod):
+    test = g % mod
+    count = 1
+    while test % mod != h:
+        test = (test * g) % mod
+        count += 1
+    return count
 
-x = shanks(97010, 13896, 17389)
-print(x)
+
+g = 13919
+h = 219382
+mod = 15485863
+
+
+beg = time.time()
+xs = shanks(g, h, mod)
+end = time.time()
+s_time = end-beg
+print(f'SHANKS: log is {xs}, time to run {s_time:.5f}')
+
+beg = time.time()
+xb = brute(g, h, mod)
+end = time.time()
+b_time = end-beg
+print(f'BRUTE: log is {xb}, time to run {b_time:.5f}')
